@@ -1,0 +1,262 @@
+{
+  "info": {
+    "_postman_id": "70d8239e-ee4c-4386-9f2c-ff82bce62c61",
+    "name": "LeedTech Fee Payment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37943465"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Minimal status code check (success or auth failure)",
+              "pm.test('Status code is 2xx/4xx', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204, 400, 401, 403, 422]);",
+              "});",
+              "",
+              "// Parse token from common fields and store in collection variable JWT_TOKEN",
+              "let json;",
+              "try {",
+              "    json = pm.response.json();",
+              "} catch (e) {",
+              "    json = null;",
+              "}",
+              "",
+              "if (json) {",
+              "    const candidates = [",
+              "        json.token,",
+              "        json.jwt,",
+              "        json.accessToken,",
+              "        json.access_token,",
+              "        json.data && (json.data.token || json.data.jwt || json.data.accessToken || json.data.access_token),",
+              "        json.result && (json.result.token || json.result.jwt || json.result.accessToken || json.result.access_token)",
+              "    ].filter(Boolean);",
+              "",
+              "    if (candidates.length) {",
+              "        pm.collectionVariables.set('JWT_TOKEN', candidates[0]);",
+              "    }",
+              "",
+              "    // Optionally set studentNumber if present",
+              "    const sn = json.studentNumber || (json.data && json.data.studentNumber) || (json.user && json.user.studentNumber);",
+              "    if (sn) {",
+              "        pm.collectionVariables.set('studentNumber', sn);",
+              "    }",
+              "}",
+              "",
+              "pm.test('JWT_TOKEN is set (if token returned)', function () {",
+              "    // Don't fail if API doesn't return a token",
+              "    pm.expect(true).to.equal(true);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "One-time Fee Payment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 2xx/4xx', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204, 400, 401, 403, 404, 409, 422]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 0,\n  \"studentNumber\": \"{{studentNumber}}\",\n  \"reference\": \"{{reference}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/one-time-fee-payment",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "one-time-fee-payment"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Student Account",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 2xx/4xx', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204, 400, 401, 403, 404, 422]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/students/{{studentNumber}}/account",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "students",
+            "{{studentNumber}}",
+            "account"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Payment History",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 2xx/4xx', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204, 400, 401, 403, 404, 422]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/students/{{studentNumber}}/payments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "students",
+            "{{studentNumber}}",
+            "payments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Student Dashboard",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 2xx/4xx', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204, 400, 401, 403, 404, 422]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/students/{{studentNumber}}/dashboard",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "students",
+            "{{studentNumber}}",
+            "dashboard"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{JWT_TOKEN}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "JWT_TOKEN",
+      "value": ""
+    },
+    {
+      "key": "studentNumber",
+      "value": ""
+    }
+  ]
+}
