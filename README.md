@@ -71,9 +71,10 @@ The repository contains two main folders:
 
 * `backend/` – Spring Boot application
 * `frontend/` – Angular application
-# other folders
+####  other folders
+
 * `Postman Collection/` – Exported API Collection
-* `screenshots/` – screenshots of ui
+* `screenshots/` – screenshots of the ui
 ---
 
 ### Backend Setup
