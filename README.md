@@ -152,10 +152,6 @@ Two students are pre-loaded (from `data.sql`):
 
 *Note: Passwords are hashed using BCrypt. The plaintext password for both is indicated above.*
 
----
-
-
----
 
 ## API Documentation
 
