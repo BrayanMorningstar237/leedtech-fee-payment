@@ -1,0 +1,102 @@
+<div class="slideshow -mt-5 pt-5 lg:mt-0 lg:pt-0"> 
+
+  <div class="slides-viewport">
+    <div class="slides-track" [style.transform]="'translateX(-' + current * 100 + '%)'">
+
+      <!-- SLIDE 1: Incentive -->
+      <div class="slide slide--indigo">
+        <div class="slide-text">
+          <span class="slide-tag slide-tag--indigo">How it works</span>
+          <h3 class="slide-title">Earn an Incentive on Every Payment</h3>
+          <p class="slide-desc">
+            Pay more, save more. Payments of <strong>xaf 100k+</strong> earn a
+            <strong>3% incentive</strong> and <strong>xaf 500k+</strong> earn
+            <strong>5%</strong>. The incentive is deducted directly from your
+            balance, so you always pay less than you owe.
+          </p>
+          <div class="slide-pills">
+            <span class="pill pill--indigo"> < xaf 100k → 1% off</span>
+            <span class="pill pill--indigo">≥ xaf 100k → 3% off</span>
+            <span class="pill pill--indigo">≥ xaf 500k → 5% off</span>
+          </div>
+        </div>
+       
+        <div class="slide-img-wrap slide-img-wrap--indigo">
+          <img src="assets/images/image1.png" alt="Discount illustration" class="slide-img" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Settle balance -->
+      <div class="slide slide--success">
+        <div class="slide-text">
+          <span class="slide-tag slide-tag--success">Settle balance</span>
+          <h3 class="slide-title">Clear Your Balance in One Go</h3>
+          <p class="slide-desc">
+            Tap <strong>"Settle in full"</strong> to pay off your entire balance
+            with a single optimised payment. The system calculates the exact amount,
+            including your incentive, so your balance reaches exactly
+            <strong>zero</strong>.
+          </p>
+          <div class="slide-pills">
+            <span class="pill pill--success">Incentive included</span>
+            <span class="pill pill--success">Balance → 0.00 CFA</span>
+          </div>
+        </div>
+        <div class="slide-img-wrap slide-img-wrap--success">
+          <img src="assets/images/image2.png" alt="Online payment illustration" class="slide-img" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Due date -->
+      <div class="slide slide--accent">
+        <div class="slide-text">
+          <span class="slide-tag slide-tag--accent">Stay on track</span>
+          <h3 class="slide-title">Never Miss a Next Due Date</h3>
+          <p class="slide-desc">
+            After every payment your <strong>Next Due Date</strong> is updated
+            automatically. Keep an eye on it in your dashboard to avoid late fees
+            and stay in good standing with your institution.
+          </p>
+          <div class="slide-pills">
+            <span class="pill pill--accent">Auto-updated</span>
+            <span class="pill pill--accent">Visible in dashboard</span>
+          </div>
+        </div>
+        <div class="slide-img-wrap slide-img-wrap--accent">
+          <img src="assets/images/image3.png" alt="Schedule illustration" class="slide-img" loading="lazy"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="slideshow-footer">
+    <div class="slideshow-dots">
+      <button *ngFor="let s of slides; let i = index"
+              class="dot" [class.dot--active]="i === current"
+              (click)="goTo(i)">
+      </button>
+    </div>
+    <div class="slideshow-controls">
+      <button class="ctrl-btn" (click)="prev()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <span class="slideshow-counter">{{ current + 1 }}&thinsp;/&thinsp;{{ slides.length }}</span>
+      <button class="ctrl-btn" (click)="next()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Auto-progress bar -->
+  <div class="progress-bar" [style.width]="progressPct + '%'"
+       [class.progress-bar--success]="current === 1"
+       [class.progress-bar--accent]="current === 2">
+  </div>
+
+</div>

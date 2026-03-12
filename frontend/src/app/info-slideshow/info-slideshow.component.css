@@ -1,0 +1,156 @@
+/* CSS variables – make sure these are also defined globally (e.g., in styles.css) */
+:host {
+  --primary: #4F6EF7;
+  --primary-light: #EEF1FE;
+  --success: #22C993;
+  --success-light: #E8FAF4;
+  --accent: #F5A623;
+  --accent-light: #FFF8EC;
+  --text-primary: #1A1D2E;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --border: #E8EAF0;
+  --surface: #FFFFFF;
+  --bg: #F4F6FC;
+  --shadow-md: 0 4px 16px rgba(79,110,247,0.08);
+  --radius: 16px;
+}
+
+.slideshow {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.slides-viewport { overflow: hidden; }
+
+.slides-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Slide ── */
+.slide {
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 24px 28px 18px;
+}
+
+@media (max-width: 620px) {
+  .slide { flex-direction: column; padding: 20px 20px 14px; gap: 16px; }
+}
+
+/* ── Text side ── */
+.slide-text { flex: 1; min-width: 0; }
+
+.slide-tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 10px; border-radius: 999px;
+  margin-bottom: 10px;
+}
+.slide-tag--indigo { background: var(--primary-light); color: var(--primary); }
+.slide-tag--success { background: var(--success-light); color: #0b6e4f; }
+.slide-tag--accent  { background: var(--accent-light);  color: #7a530d; }
+
+.slide-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 19px; font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3; letter-spacing: -0.4px;
+  margin-bottom: 8px;
+}
+@media (max-width: 620px) { .slide-title { font-size: 17px; } }
+
+.slide-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 400px;
+  margin-bottom: 14px;
+}
+.slide-desc strong { color: var(--text-primary); font-weight: 700; }
+
+/* Pill badges */
+.slide-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.pill {
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+}
+.pill--indigo { background: var(--primary-light); color: var(--primary); }
+.pill--success { background: var(--success-light); color: #0b6e4f; }
+.pill--accent  { background: var(--accent-light);  color: #7a530d; }
+
+/* ── Image side ── */
+.slide-img-wrap {
+  flex-shrink: 0;
+  width: 180px; height: 140px;
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+}
+
+@media (max-width: 620px) {
+  .slide-img-wrap { width: 100%; height: 110px; }
+}
+
+.slide-img-wrap--indigo { background: var(--primary-light); }
+.slide-img-wrap--success { background: var(--success-light); }
+.slide-img-wrap--accent  { background: var(--accent-light); }
+
+.slide-img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+
+/* ── Footer ── */
+.slideshow-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 28px 14px;
+}
+@media (max-width: 620px) { .slideshow-footer { padding: 4px 20px 12px; } }
+
+.slideshow-dots { display: flex; align-items: center; gap: 6px; }
+
+.dot {
+  height: 7px; border-radius: 999px; border: none; cursor: pointer;
+  transition: all 0.3s; padding: 0;
+}
+.dot--active { width: 22px; background: var(--primary); }
+.dot:not(.dot--active) { width: 7px; background: var(--border); }
+.dot:not(.dot--active):hover { background: var(--text-muted); }
+
+.slideshow-controls { display: flex; align-items: center; gap: 6px; }
+
+.slideshow-counter {
+  font-size: 12px; font-weight: 700; color: var(--text-muted);
+  min-width: 30px; text-align: center;
+}
+
+.ctrl-btn {
+  width: 30px; height: 30px; border-radius: 10px; border: none;
+  background: var(--bg); color: var(--text-muted);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.ctrl-btn:hover { background: var(--primary-light); color: var(--primary); }
+
+/* ── Progress bar ── */
+.progress-bar {
+  position: absolute; bottom: 0; left: 0;
+  height: 3px; border-radius: 999px;
+  background: var(--primary);
+  transition: width 0.07s linear;
+}
+.progress-bar--success { background: var(--success); }
+.progress-bar--accent  { background: var(--accent); }

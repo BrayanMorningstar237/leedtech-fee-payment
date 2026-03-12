@@ -1,0 +1,199 @@
+<div class="login-shell">
+
+  <!-- Left Panel: Branding -->
+  <div class="brand-panel">
+    <!-- Blobs (z-index 1, purely decorative) -->
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+
+    <!-- All content in normal flex-column flow (z-index 2) -->
+    <div class="brand-panel__inner">
+
+      <div class="brand-logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <line x1="2" y1="10" x2="22" y2="10"/>
+        </svg>
+      </div>
+
+      <h1 class="brand-heading">LeedTech<br><span>Payments</span></h1>
+      <p class="brand-tagline">Seamless school fee management for students, built for speed and clarity.</p>
+
+      <div class="brand-stats">
+        <div class="stat">
+          <span class="stat__value">100%</span>
+          <span class="stat__label">Secure</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__value">24/7</span>
+          <span class="stat__label">Access</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__value">1-5%</span>
+          <span class="stat__label">Incentive</span>
+        </div>
+      </div>
+
+      <!-- Deco cards: in-flow, no absolute positioning -->
+      <div class="deco-cards">
+        <div class="deco-card">
+          <div class="deco-card__icon deco-card__icon--green">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="deco-card__body">
+            <p class="deco-card__title">Payment Confirmed</p>
+            <p class="deco-card__sub">500.00 · just now</p>
+          </div>
+          <div class="deco-card__pulse"></div>
+        </div>
+
+        <div class="deco-card deco-card--offset">
+          <div class="deco-card__icon deco-card__icon--amber">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <div class="deco-card__body">
+            <p class="deco-card__title">Incentive Earned</p>
+            <p class="deco-card__sub">+15.00 saved</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Right Panel: Login Form -->
+  <div class="form-panel">
+    <div class="form-panel__inner">
+
+      <!-- Mobile Logo -->
+      <div class="mobile-logo">
+        <div class="brand-logo brand-logo--sm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+        </div>
+        <span class="mobile-logo__name">LeedTech <strong>Payments</strong></span>
+      </div>
+
+      <div class="form-header">
+        <h2 class="form-title">Welcome back</h2>
+        <p class="form-subtitle">Sign in to your student account</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+
+        <!-- Student Number -->
+        <div class="field">
+          <label class="field-label">Student Number</label>
+          <div class="input-wrap"
+               [class.input-wrap--focus]="studentNumberFocus"
+               [class.input-wrap--error]="studentNumberField.invalid && studentNumberField.touched">
+            <div class="input-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <input
+              type="text"
+              [(ngModel)]="studentNumber"
+              name="studentNumber"
+              required
+              (focus)="studentNumberFocus = true"
+              (blur)="studentNumberFocus = false"
+              class="field-input"
+              placeholder="e.g. STU001"
+              #studentNumberField="ngModel"
+              autocomplete="username">
+          </div>
+          <p *ngIf="studentNumberField.invalid && studentNumberField.touched" class="field-error">
+            Student number is required
+          </p>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label class="field-label">Password</label>
+          <div class="input-wrap"
+               [class.input-wrap--focus]="passwordFocus"
+               [class.input-wrap--error]="passwordField.invalid && passwordField.touched">
+            <div class="input-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              required
+              (focus)="passwordFocus = true"
+              (blur)="passwordFocus = false"
+              class="field-input"
+              placeholder="••••••••"
+              #passwordField="ngModel"
+              autocomplete="current-password">
+            <button type="button" class="eye-btn" (click)="showPassword = !showPassword">
+              <svg *ngIf="!showPassword" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg *ngIf="showPassword" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <p *ngIf="passwordField.invalid && passwordField.touched" class="field-error">
+            Password is required
+          </p>
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="error" class="login-error">
+          <div class="login-error__icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          {{error}}
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" [disabled]="loginForm.invalid || loading" class="submit-btn">
+          <span *ngIf="!loading" class="submit-btn__content">
+            Sign In
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+          <span *ngIf="loading" class="submit-btn__loading">
+            <svg class="spinner" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+              <path d="M12 2a10 10 0 0 1 10 10" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            Signing in...
+          </span>
+        </button>
+
+      </form>
+
+      <p class="form-footer">Having trouble? Contact your institution's admin.</p>
+    </div>
+  </div>
+
+</div>
